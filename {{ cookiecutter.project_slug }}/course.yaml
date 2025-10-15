@@ -1,0 +1,124 @@
+#
+#  course.yaml は、コース全体を定義するための Yaml ファイルです。
+#  "course.yaml" という名前は変更しないでください。
+#  以下の例を参考に、ご自身のコースを組み立ててください。
+#  各フィールドの詳細は、別途ドキュメントをご確認ください。
+#  この文章も含めて、コメントアウト部分は削除しても大丈夫です。
+#
+yaml_rule_version: 2  # <- 必ず 2 のままにしてください
+
+# 以下の "display_" から始まるフィールドは、すべてアプリに表示されるコース情報です。
+# 参加者にわかりやすいよう自由に設定してください。
+debug_mode: true  # <- true にしているとデバッグモードとなります。
+display_name: マインドフルネスコース
+display_provider: どこどこ大学なになに研究室
+display_summary: >
+  マインドフルネスストレス低減法やマインドフルネス認知療法と呼ばれるプログラムをもとに作成した、14日間のコースです。
+  1日30分ほどの瞑想実践を通して、ご自身にどんな変化が起きるか、あるいは起きないか、一緒に調べてみましょう。
+display_days: 14日
+display_time_per_day: 30分
+display_environment: 誰にも声をかけられない静かな環境
+
+seekbar_mode: if_completed  # セッションのシークバー機能を有効にするかどうか。"if_completed" だと、一度完了したセッションのみ有効になります。
+min_active_time_hours: 12.0  # 参加者が活動時間帯を設定するとき、その長さがこれ未満だと再入力を求めます。
+interval_seconds: 1.0  # ここで指定した秒数をピース間に挿入します。
+variations:  # 男性の声・女性の声など、コースのバリエーションを設定できます。バリエーションはいくつでも設定できますが、最低一つ必要です。
+  - variation_suffix: josei  # バリエーションのIDです。自由に設定できます。指定したIDに対応する chunk_{}.yaml ファイルが必要になります。
+    display_variation: 女性によるガイダンス  # アプリに表示されるバリエーション名です。
+  - variation_suffix: dansei
+    display_variation: 男性によるガイダンス
+
+components:
+  # 以下に、コースを構成するオブジェクトを指定します。
+  # セッションまたは調査のいずれかを指定し、それらオブジェクトがオープン・クローズする条件を指定します。
+
+  - object_id: bunsho-hajime  # ここに指定したIDをコースの構成要素として加えます。IDは自由に命名可能です。
+    type: session  # type が "session" だと、object_id に指定したIDを session.yaml から探します。type には "session" または "survey" を指定できます。
+
+  - object_id: kainyu-mae-chousa
+    type: survey  # type が "survey" だと、object_id に指定したIDを survey.yaml から探します。
+    open_when:  # 該当のオブジェクトがオープンする条件を指定します。open_when を書かないと、無条件にオープンします。
+      source: bunsho-hajime  # bunsho-hajime が...
+      num_event: 1  # 1回...
+      event_type: complete  # 完了するとオープンします。"complete" 以外に指定可能なイベントについてはドキュメントを確認してください。
+    close_when:  # 該当のオブジェクトがクローズする条件を指定します。close_when を書かないと、クローズすることはありません。
+      source: survey-pre  # survey-pre が...
+      num_event: 1  # 1回...
+      event_type: complete  # complete するとクローズします。
+
+  - object_id: kainyu-mae-ema
+    type: survey
+    open_when:
+      source: kainyu-mae-chousa
+      num_event: 1
+      # event_type: complete がデフォルトです。指定しないとこの設定になります。
+    close_when:
+      # source のデフォルトは自分自身（この場合ならkainyu-mae-ema）です。
+      num_event: 35
+      event_type: inactive
+      
+  - object_id: oshirase-session-kaishi
+    type: survey
+    open_when:
+      source: kainyu-mae-ema
+      num_event: 1
+      event_type: close
+    close_when:
+      source: kougi-1
+      num_event: 1
+
+  - object_id: kougi-1
+    type: session
+    open_when:
+      source: kainyu-mae-ema
+      num_event: 1
+      event_type: close
+
+  - object_id: kougi-2
+    type: session
+    open_when:
+      source: kougi-1  # kougi-1 が...
+      num_event: 1  # 1回完了して...
+      spend_hours: 12  # 12時間経つとオープンします。
+
+  - object_id: kougi-3
+    type: session
+    open_when:
+      source: kougi-2
+      num_event: 1
+      spend_hours: 12
+
+  - object_id: kainyu-go-ema
+    type: survey
+    open_when:
+      source: kougi-3
+      num_event: 1
+    close_when:
+      num_event: 35
+      event_type: inactive
+
+  - object_id: oshirase-ema-owari
+    type: survey
+    open_when:
+      source: kainyu-go-ema
+      num_event: 1
+      event_type: close
+    close_when:
+      source: kainyu-go-chousa
+      num_event: 1
+
+  - object_id: kainyu-go-chousa
+    type: survey
+    open_when:
+      source: kainyu-go-ema
+      num_event: 1
+      event_type: close
+    close_when:
+      num_event: 1
+      
+  - object_id: bunsho-saigo
+    type: session
+    open_when:
+      source: kainyu-go-chousa
+      num_event: 1
+      event_type: close

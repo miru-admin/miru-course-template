@@ -1,0 +1,55 @@
+#
+# survey.yaml は、course.yaml の object_id で指定されたオブジェクトのうち、type: survey のものを定義するための Yaml ファイルです。
+# "survey.yaml" という名前は変更しないでください。
+#
+- survey_id: kainyu-mae-chousa
+  shuffle_components: true  # components に指定された質問紙セットの順番がシャッフルされます。質問紙セット単位でのシャッフルです。
+  components:  # 調査に含む質問紙セットを指定します。
+    - quests:
+        - demographics  # quest/demographics.yaml が読み込まれます。
+        - personality
+      shuffle_quests: true  # 質問紙セット単位のシャッフルとは別に、質問紙セット内で質問紙の提示順をシャッフルします。
+    - quests:
+        - depression
+        - anxiety
+
+- survey_id: kainyu-go-chousa
+  components:
+    - shuffle_quests: true
+      quests:
+        - depression
+        - anxiety
+        - bunkijouken
+      page_break: true  #  <- この質問紙セットへの回答が完了した時点で、調査ページが切り替わります（表示上の区切りです）。
+    - skip_if_answer_in: 2  # <- root-typeの質問紙への回答（最新一件）を参照し、回答が2だった場合にはこの質問紙セットをスキップします。
+      quests:
+        - feedback
+
+- survey_id: kainyu-mae-ema
+  delivery_setting:
+    num_daily_deliveries: 5  # 一日5回配信されます。
+    jitter_hour: 0.5  # ±配信タイミングがプラスマイナス30分ランダムに前後します。
+    inactive_after_hour: 0.5  # 配信から30分経つと該当の調査がイナクティブになり、回答できなくなります。
+  shuffle_components: true
+  components:
+    - shuffle_quests: true
+      quests:
+        - positive
+        - negative
+    - skip_if_delivery_count_in: [2, 3, 4, 5]  # 配信がその日の2, 3, 4, 5回目の場合は、この質問紙セットをスキップします。つまり、その日初回の配信でのみ、この質問紙セットが提示されます。
+      quests:
+        - sleep
+    - skip_if_delivery_count_in: [1, 2, 3, 4]  # 配信がその日の1  2, 3, 4回目の場合は、この質問紙セットをスキップします。つまり、その日最後の配信でのみ、この質問紙セットが提示されます。
+      quests:
+        - wellbeing
+
+- survey_id: kainyu-go-ema
+  delivery_setting:
+    num_daily_deliveries: 5 # 一日5回配信するという設定ですが、"fixed_delivery_times" が設定されているため、ここの設定は無視されます。
+    jitter_hour: 0.0
+    inactive_after_hour: null  # 配信から時間が経っても回答不能になりません。
+    notice_message: おやすみの前にご回答ください  # 端末に届く通知に書かれるメッセージ文です。
+    fixed_delivery_times: [0.95]  # 参加者が設定した活動時間帯のうち、95%の時間に配信がなされます。
+  components:
+    - quests:
+        - wellbeing
