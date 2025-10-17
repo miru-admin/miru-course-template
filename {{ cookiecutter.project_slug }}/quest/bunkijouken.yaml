@@ -1,0 +1,16 @@
+- type: instruction
+  prompt: 次の質問の回答によって、それに続く質問の内容が変わります。
+    
+- type: instruction
+  prompt: よく考えて回答をしてください。
+  image: warning-mark.png  # prompt の下に表示する画像。media/_common/warning-mark.png を表示します。
+
+- type: root  # この質問への回答によって、続く質問がスキップされる可能性があります。
+  auto_advance: false  # デフォルトは true です。false だと、回答をしても、[次へ] ボタンをタップしないと次の問へ進みません
+  items:
+    - 真面目にセッションに参加していましたか？
+  choices:
+    - 真面目でなかった
+    - あまり真面目でなかった
+    - それなりに真面目だった
+    - 真面目だった

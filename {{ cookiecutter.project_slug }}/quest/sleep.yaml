@@ -1,0 +1,6 @@
+- type: select
+  items:
+    - 昨日の夜はよく眠れましたか？
+  choices:
+    - いいえ
+    - はい

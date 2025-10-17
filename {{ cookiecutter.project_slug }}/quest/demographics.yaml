@@ -1,0 +1,16 @@
+- type: open_ended  # 自由記述の質問を出します
+  items:
+    - あなたの年齢は？  # 質問項目です
+  validatrion:
+    min_number: 0  # 記述内容が0以上...
+    max_number: 150  # 150以内でない場合は再入力を求めます
+
+- type: select  # 上の自由記述に続いて、択一式の質問を出します
+  optional: true  # 未入力を許容します
+  multiselect: true  # 複数選択可能とします。
+  items:
+    - あなたの性別は？（回答任意）
+  choices:  # 選択肢です
+    - 男性
+    - 女性
+    - どちらとも言えない

@@ -1,0 +1,11 @@
+- type: vas
+  shuffle_items: true
+  shuffle_label_position: true
+  prompt: いまの気分は？
+  item:
+    - ポジティブですか？
+  choices:
+    - 違う
+    - やや違う
+    - まぁまぁそうだ
+    - そうだ

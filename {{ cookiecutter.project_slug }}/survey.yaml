@@ -11,19 +11,22 @@
       shuffle_quests: true  # 質問紙セット単位のシャッフルとは別に、質問紙セット内で質問紙の提示順をシャッフルします。
     - quests:
         - depression
-        - anxiety
 
 - survey_id: kainyu-go-chousa
   components:
     - shuffle_quests: true
       quests:
         - depression
-        - anxiety
         - bunkijouken
       page_break: true  #  <- この質問紙セットへの回答が完了した時点で、調査ページが切り替わります（表示上の区切りです）。
-    - skip_if_answer_in: 2  # <- root-typeの質問紙への回答（最新一件）を参照し、回答が2だった場合にはこの質問紙セットをスキップします。
+    - skip_if_answer_in: [3, 4]  # <- root-typeの質問紙への回答（最新一件）を参照し、回答が3か4だった場合にはこの質問紙セットをスキップします。
       quests:
         - feedback
+    - quests:
+        - education
+    - skip_if_answer_in: 2
+      quests:
+        - education_suppl
 
 - survey_id: kainyu-mae-ema
   delivery_setting:
