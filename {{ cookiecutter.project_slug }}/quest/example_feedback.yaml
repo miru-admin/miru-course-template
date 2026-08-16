@@ -1,0 +1,5 @@
+- type: open_ended
+  optional: true
+  items:
+    - 感想を自由に書いてください。
+  

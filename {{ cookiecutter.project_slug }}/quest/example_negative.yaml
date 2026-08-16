@@ -2,7 +2,7 @@
   shuffle_items: true
   shuffle_label_position: true
   prompt: いまの気分は？
-  item:
+  items:
     - ネガティブですか？
   choices:
     - 違う

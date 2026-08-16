@@ -1,75 +1,29 @@
-
 #
 # chunk_{}.yaml は、session.yaml の chunks で指定されたチャンクを定義するための Yaml ファイルです。
 # {} には、course.yaml で指定した variation_suffix を当てはめてください。
 # 別の chunk_{}.yaml とまったく違う構成にすることもできます。
 # ただし、session.yaml に指定されたチャンクはすべてここで定義される必要があります。
 #
-- chunk_id: intro  # session.yaml で指定したIDです。
+- chunk_id: chunk-1-1  # session.yaml で指定したIDです。
   pieces:  # チャンクを構成するファイルを指定してください。指定したファイルが指定順に再生されます。
-    # 指定したファイルを media/dansei/ にて探します。ここに存在しない場合は、media/_common にて探します。
-    - intro-001.mp3
-    - intro-002.mp3
-    - intro-003.mp3
+    # 指定したファイルを media/josei/ にて探します。ここに存在しない場合は、media/_common にて探します。
+    - piece-1.mp3
 
-- chunk_id: 1-001
+- chunk_id: chunk-1-2
   pieces:
-    - 1-0001.mp3
-    - 1-0002.mp3
+    - piece-2.mp3
     - _sl_2  # "_sl_" から始まる文字列を入れると、その秒数分無音のインターバルが挟まります。"_sl_2" なら2秒のインターバルです。
-    - 1-0003.mp3
+    - piece-3.mp3
 
-- chunk_id: kokyu
+- chunk_id: chunk-2
   interval_seconds: 2  # このチャンクにおいては、ピース間に毎回2秒の無音インターバルが入ります。
   pieces:
-    - 1-0004.mp3
-    - 1-0005.mp3
-    - _sl_18
-    - 1-0006.mp3
-    - _sl_13
-    - 1-0007.mp3
+    - piece-4.mp3
+    - piece-5.mp3
 
-- chunk_id: 1-002
+- chunk_id: chunk-3
   pieces:
-    - 1-0008.mp3
-    - 1-0009.mp3
-    - 1-0010.mp3
-
-- chunk_id: 2-001
-  pieces:
-    - 2-0001.mp3
-    - 2-0002.mp3
-
-- chunk_id: bodyscan
-  interval_seconds: 2
-  pieces:
-    - 2-0003.mp3
-    - _sl_15
-    - 2-0004.mp3
-    - 2-0005.mp4  # 動画ファイルを指定することもできます。
-    - 2-0006.mp3
-    - _sl_400
-    - 2-0007.mp3
-    - [2-0008.mp3, 2-0008.png]  # 音声ファイル（または"_sl_"）と画像ファイルを指定することで、その音声を再生中に画像を提示できます。
-    - _sl_3
-    - 2-0009.mp3
-    - 2-0010.mp3
-
-- chunk_id: 2-002
-  pieces:
-    - 2-0011.mp3
-
-- chunk_id: 3-001
-  pieces:
-    - 3-0001.mp3
-    - 3-0002.mp3
-
-- chunk_id: 3-002
-  pieces:
-    - 3-0003.mp3
-
-- chunk_id: 3-003
-  pieces:
-    - 3-0004.mp3
-    - 3-0005.mp3
-    - 3-0006.mp3
+    - piece-6.mp3
+    - piece-7.mp4  # 動画ファイルを指定することもできます。
+    - [piece-8.mp3, piece-img1.png]  # 音声ファイル（または"_sl_"）と画像ファイルを指定することで、その音声を再生中に画像を提示できます。
+    - [_sl_5, piece-img2.jpeg]  # 音声ファイル（または"_sl_"）と画像ファイルを指定することで、その音声を再生中に画像を提示できます。

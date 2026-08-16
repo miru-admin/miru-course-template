@@ -13,44 +13,33 @@
   display_name: 1日目：呼吸瞑想
   # write_session_diary のデフォルトは true です。
   docs_before:
-    - bunsho-1.html
+    - bunsho-1-1.html
   chunks:  # このセッションを構成する chunk のIDを指定します。IDは自由に命名可能です。ここに指定したIDを、chunk_{}.yaml から探します。
-    - intro
-    - 1-001
-    - kokyu
-    - 1-002
+    - chunk-1-1
+    - chunk-1-2
   docs_after:
-    - doc-1-2.html  # セッションが終わった後に提示する文書ファイルです。
+    - bunsho-1-2.html  # セッションが終わった後に提示する文書ファイルです。
 
 - session_id: kougi-2
   display_name: 2日目：ボディスキャン
   docs_before:
-    - doc-2-1.html
+    - bunsho-2-1.html
   chunks:
-    - intro  # 前のセッションに出た chunk を再び指定することが可能です。
-    - 2-001
-    - bodyscan
-    - 2-002
-  docs_after:
-    - doc-2-2.html
+    - chunk-2
+  # docs_afterを指定していないため、このセッションは音声提示終了後すぐ終わります
 
 - session_id: kougi-3
   display_name: 3日目：まとめ
-  docs_before:
-    - doc-3-1.html
+  # docs_beforeを指定していないため、このセッションはすぐ音声提示が始まります。
   chunks:
-    - intro
-    - 3-001
-    - kokyu
-    - 3-002
-    - bodyscan
-    - 3-003
-  docs_after:  セッション前後に提示する文書ファイルを、複数指定することもできます。指定された順に提示されます。
-    - doc-3-2.html
-    - doc-3-3.html
+    - chunk-3
+  docs_after:
+    # セッション前後に提示する文書ファイルを、複数指定することもできます。指定された順に提示されます。
+    - bunsho-3-1.html
+    - bunsho-3-2.html
 
-- session_id: doc-post
+- session_id: bunsho-saigo
   display_name: ありがとうございました。
   write_session_diary: false
   docs_before:
-    - doc-post
+    - bunsho-saigo.html

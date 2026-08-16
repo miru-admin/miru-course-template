@@ -6,27 +6,27 @@
   shuffle_components: true  # components に指定された質問紙セットの順番がシャッフルされます。質問紙セット単位でのシャッフルです。
   components:  # 調査に含む質問紙セットを指定します。
     - quests:
-        - demographics  # quest/demographics.yaml が読み込まれます。
-        - personality
+        - example_demographics  # quest/demographics.yaml が読み込まれます。
+        - example_personality
       shuffle_quests: true  # 質問紙セット単位のシャッフルとは別に、質問紙セット内で質問紙の提示順をシャッフルします。
     - quests:
-        - depression
+        - example_depression
 
 - survey_id: kainyu-go-chousa
   components:
     - shuffle_quests: true
       quests:
-        - depression
-        - bunkijouken
+        - example_depression
+        - example_bunkijouken
       page_break: true  #  <- この質問紙セットへの回答が完了した時点で、調査ページが切り替わります（表示上の区切りです）。
     - skip_if_answer_in: [3, 4]  # <- root-typeの質問紙への回答（最新一件）を参照し、回答が3か4だった場合にはこの質問紙セットをスキップします。
       quests:
-        - feedback
+        - example_feedback
     - quests:
-        - education
-    - skip_if_answer_in: 2
+        - example_education
+    - skip_if_answer_in: [2]
       quests:
-        - education_suppl
+        - example_education_suppl
 
 - survey_id: kainyu-mae-ema
   delivery_setting:
@@ -37,14 +37,14 @@
   components:
     - shuffle_quests: true
       quests:
-        - positive
-        - negative
+        - example_positive
+        - example_negative
     - skip_if_delivery_count_in: [2, 3, 4, 5]  # 配信がその日の2, 3, 4, 5回目の場合は、この質問紙セットをスキップします。つまり、その日初回の配信でのみ、この質問紙セットが提示されます。
       quests:
-        - sleep
+        - example_sleep
     - skip_if_delivery_count_in: [1, 2, 3, 4]  # 配信がその日の1  2, 3, 4回目の場合は、この質問紙セットをスキップします。つまり、その日最後の配信でのみ、この質問紙セットが提示されます。
       quests:
-        - wellbeing
+        - example_wellbeing
 
 - survey_id: kainyu-go-ema
   delivery_setting:
@@ -55,4 +55,15 @@
     fixed_delivery_times: [0.95]  # 参加者が設定した活動時間帯のうち、95%の時間に配信がなされます。
   components:
     - quests:
-        - wellbeing
+        - example_wellbeing
+
+- survey_id: oshirase-session-kaishi
+  delivery_setting:
+    notice_message: 講義がはじまりました！
+    fixed_delivery_times: [0.0]
+  # components: を設定しないまたは空にすると、通知のみとなります。
+
+- survey_id: oshirase-ema-owari
+  delivery_setting:
+    notice_message: EMAはこれで終了です。最後の調査へ！
+    fixed_delivery_times: [0.0]
